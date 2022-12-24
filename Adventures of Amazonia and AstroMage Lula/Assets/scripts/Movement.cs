@@ -7,7 +7,7 @@ public class Movement : MonoBehaviour
 {
     Animator animator;
     Rigidbody2D rB;
-    float lastXPushed;
+    float lastXPushed =1;
     bool isWalking = false;
     bool isInAir;
     float xVel;
@@ -20,10 +20,13 @@ public class Movement : MonoBehaviour
     const string idleLeft = "idleLeft";
     const string mageJump = "mageJump";
     const string mageJumpLeft = "mageJumpLeft";
+    const string shootRight = "shootRight";
+    const string shootLeft = "shootLeft";
 
     //weapon values
     [SerializeField] GameObject weapon;
     [SerializeField] GameObject spawnWeapon;
+    bool isShooting = false;
 
     private void Awake()
     {
@@ -41,7 +44,9 @@ public class Movement : MonoBehaviour
     }
     private void Update()
     {
+        //Debug.Log(isGrounded);
         //Debug.Log(lastXPushed);
+
         JumpingAnimation(xVel);
         Attack(0);
 
@@ -116,13 +121,13 @@ public class Movement : MonoBehaviour
         }
         
 
-        if (lastXPushed == 1  && isWalking == false && isGrounded == true)
+        if (lastXPushed == 1  && isWalking == false && isGrounded == true && isShooting == false)
         {
             IdleRightAnimation();
 
         }
        
-        if (lastXPushed == -1 && isWalking == false && isGrounded == true)
+        if (lastXPushed == -1 && isWalking == false && isGrounded == true && isShooting == false)
         {
             IdleLeftAnimation();
 
@@ -204,7 +209,18 @@ public class Movement : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.J))
         {
-            Debug.Log("attack has been made");
+            isShooting = true;
+            if (lastXPushed == 1)
+            {
+                animator.Play(shootRight);
+            }
+            else if ( lastXPushed == -1)
+            {
+                animator.Play(shootLeft);
+
+            }
+            StartCoroutine(ShootingTime());
+           // Debug.Log("attack has been made");
             SpawnWeapon();
 
         }
@@ -217,19 +233,27 @@ public class Movement : MonoBehaviour
     {
         // GameObject projectile = Instantiate(weapon,spawnWeapon.transform.position ,Quaternion.identity) as GameObject;
         GameObject projectile = Instantiate(weapon, transform.position, Quaternion.identity) as GameObject;
-
+        Destroy(projectile, 4f);
     }
 
 
 
     public float GetFacingDirection()
     {
+        if (lastXPushed == 0)
+        {
+            lastXPushed = 1;
+        }
         return lastXPushed;
 
     }
 
 
-
+    IEnumerator ShootingTime()
+    {
+        yield return new WaitForSeconds(.8f);
+        isShooting = false;
+    }
 
 
 }

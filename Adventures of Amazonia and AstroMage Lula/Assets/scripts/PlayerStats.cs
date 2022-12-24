@@ -6,12 +6,15 @@ public class PlayerStats : MonoBehaviour
 {
     int startingHealth = 1000;
     int curentHealth;
+    int startingMana = 100;
+    int curentMana;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        curentHealth = startingHealth;  
+        curentHealth = startingHealth;
+        curentMana = startingMana;
     }
 
     // Update is called once per frame
@@ -49,8 +52,20 @@ public class PlayerStats : MonoBehaviour
     }
 
 
+    public int PlayerLife()
+    {
+
+        return curentHealth;
 
 
+    }
 
+    public int PlayerMana()
+    {
+
+        return curentMana;
+
+
+    }
 
 }

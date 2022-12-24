@@ -12,7 +12,10 @@ public class trap : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        thePlayer.PlayerDeath();
+        if (collision.gameObject.tag == "Player")
+        {
+            thePlayer.PlayerDeath();
+        }
     }
 
 

@@ -7,14 +7,26 @@ public class ProjectileDirections : MonoBehaviour
     Rigidbody2D proj;
     Movement facingDirection;
     float direction;
+    Animator starRot;
+
+    int starDamage = 10;
+
+    float damModifier;
 
     private void Start()
     {
         FireProjectile(direction);
+        starRot.Play("starRotation");
     }
 
     private void Awake()
+
     {
+        
+        
+
+
+        starRot = GetComponent<Animator>();
         proj = GetComponent<Rigidbody2D>();
 
         facingDirection = FindObjectOfType<Movement>();
@@ -28,7 +40,7 @@ public class ProjectileDirections : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(direction);
+       // Debug.Log(direction);
 
     }
 
@@ -39,4 +51,12 @@ public class ProjectileDirections : MonoBehaviour
 
 
     }
+
+    public int Damage()
+    {
+        return starDamage;
+
+    }
+
+
 }
