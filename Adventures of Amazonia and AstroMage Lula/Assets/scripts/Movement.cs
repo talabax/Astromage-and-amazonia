@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
     bool isWalking = false;
     bool isInAir;
     float xVel;
-    
+    SoundPlayer soundPlayer;
 
     //animation states
     const string moveRight = "moveRight";
@@ -32,6 +32,7 @@ public class Movement : MonoBehaviour
     {
         rB = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        soundPlayer = FindObjectOfType<SoundPlayer>();
     }
 
 
@@ -209,6 +210,7 @@ public class Movement : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.J))
         {
+            soundPlayer.soundShotSound();
             isShooting = true;
             if (lastXPushed == 1)
             {

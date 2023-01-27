@@ -5,8 +5,10 @@ using UnityEngine;
 public class trap : MonoBehaviour
 {
     PlayerStats thePlayer;
+    DamageEffects damageEffects;
     private void Awake()
     {
+        damageEffects = FindObjectOfType<DamageEffects>();
         thePlayer = FindObjectOfType<PlayerStats>();
     }
 
@@ -14,6 +16,7 @@ public class trap : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            damageEffects.DamageWarning();
             thePlayer.PlayerDeath();
         }
     }

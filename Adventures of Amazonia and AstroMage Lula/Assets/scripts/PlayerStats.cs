@@ -8,11 +8,12 @@ public class PlayerStats : MonoBehaviour
     int curentHealth;
     int startingMana = 100;
     int curentMana;
-
+    DamageEffects damageEffects;
 
     // Start is called before the first frame update
     void Start()
     {
+        damageEffects = FindObjectOfType<DamageEffects>();
         curentHealth = startingHealth;
         curentMana = startingMana;
     }
@@ -35,6 +36,7 @@ public class PlayerStats : MonoBehaviour
 
     public void PlayerTakesDamage( int amount)
     {
+        damageEffects.DamageWarning();
         curentHealth = curentHealth - amount;
         if (curentHealth <= 0)
         {

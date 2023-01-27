@@ -7,6 +7,18 @@ public class Boot : MonoBehaviour
     Rigidbody2D rb;
 
     // Start is called before the first frame update
+
+    PlayerStats thePlayer;
+    DamageEffects damageEffects;
+    private void Awake()
+    {
+        damageEffects = FindObjectOfType<DamageEffects>();
+        thePlayer = FindObjectOfType<PlayerStats>();
+    }
+
+
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -18,4 +30,19 @@ public class Boot : MonoBehaviour
     {
         
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            //damageEffects.DamageWarning();
+            thePlayer.PlayerTakesDamage(10);
+        }
+
+
+    }
+
+
+
+
 }
