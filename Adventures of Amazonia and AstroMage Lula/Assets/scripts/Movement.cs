@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour
     bool isInAir;
     float xVel;
     SoundPlayer soundPlayer;
+    PlayerStats playerStats;
 
     //animation states
     const string moveRight = "moveRight";
@@ -33,6 +34,7 @@ public class Movement : MonoBehaviour
         rB = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         soundPlayer = FindObjectOfType<SoundPlayer>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
 
@@ -50,6 +52,8 @@ public class Movement : MonoBehaviour
 
         JumpingAnimation(xVel);
         Attack(0);
+        SuperJumpingAnimation(xVel);
+
 
     }
 
@@ -205,6 +209,45 @@ public class Movement : MonoBehaviour
 
 
     }
+
+    void SuperJumpingAnimation(float xVel)
+    {
+
+
+
+
+        if (Input.GetKeyDown(KeyCode.K) && isGrounded == true && lastXPushed == 1 && playerStats.PlayerLosesMana(20) == true)
+        {
+
+            rB.AddForce(new Vector2(0, 12f), ForceMode2D.Impulse);
+            animator.Play(mageJump);
+
+            isGrounded = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.K) && isGrounded == true && lastXPushed == -1 && playerStats.PlayerLosesMana(20) == true)
+        {
+            rB.AddForce(new Vector2(0, 12f), ForceMode2D.Impulse);
+            animator.Play(mageJumpLeft);
+
+            isGrounded = false;
+        }
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 
     void Attack(int attackMod)
     {

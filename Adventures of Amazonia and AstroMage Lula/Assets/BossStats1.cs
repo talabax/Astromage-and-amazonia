@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterStats : MonoBehaviour
+public class BossStats1 : MonoBehaviour
 {
-    int monsterHealth = 50;
+    int monsterHealth = 100;
     int monsterCurrentHealth;
 
 
@@ -38,6 +38,7 @@ public class MonsterStats : MonoBehaviour
 
     }
 
+    
 
 
     void TakeDamage(int dam)

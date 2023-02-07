@@ -5,17 +5,21 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     int startingHealth = 1000;
-    int curentHealth;
+    int currentHealth;
+    
     int startingMana = 100;
-    int curentMana;
+    int currentMana;
+    bool result;
+
+
     DamageEffects damageEffects;
 
     // Start is called before the first frame update
     void Start()
     {
         damageEffects = FindObjectOfType<DamageEffects>();
-        curentHealth = startingHealth;
-        curentMana = startingMana;
+        currentHealth = startingHealth;
+        currentMana = startingMana;
     }
 
     // Update is called once per frame
@@ -37,8 +41,8 @@ public class PlayerStats : MonoBehaviour
     public void PlayerTakesDamage( int amount)
     {
         damageEffects.DamageWarning();
-        curentHealth = curentHealth - amount;
-        if (curentHealth <= 0)
+        currentHealth = currentHealth - amount;
+        if (currentHealth <= 0)
         {
             PlayerDeath();
         }
@@ -47,7 +51,7 @@ public class PlayerStats : MonoBehaviour
 
     public void PlayerGainsLife(int amount)
     {
-        curentHealth = curentHealth + amount;
+        currentHealth = currentHealth + amount;
 
 
 
@@ -57,17 +61,51 @@ public class PlayerStats : MonoBehaviour
     public int PlayerLife()
     {
 
-        return curentHealth;
+        return currentHealth;
 
 
     }
+
+
+
+
+    //handle mana
+
+
+
+    public void PlayerGainsMana(int amount)
+    {
+        currentMana = currentMana + amount;
+
+
+
+    }
+
 
     public int PlayerMana()
     {
 
-        return curentMana;
+        return currentMana;
 
 
     }
+
+    public bool PlayerLosesMana(int amount)
+    {
+        if( amount <= currentMana)
+        {
+            currentMana = currentMana - amount;
+
+            result = true;
+        }
+        else if (amount > currentMana)
+        {
+            result= false;  
+        }
+
+        return result;
+    }
+
+
 
 }
