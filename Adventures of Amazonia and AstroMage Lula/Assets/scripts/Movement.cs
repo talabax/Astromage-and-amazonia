@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     bool isWalking = false;
     bool isInAir;
     float xVel;
+    bool isDead = false;
     SoundPlayer soundPlayer;
     PlayerStats playerStats;
 
@@ -89,56 +90,58 @@ public class Movement : MonoBehaviour
   
     private void Move()
     {
-        float xVel = Input.GetAxisRaw("Horizontal");
-        //lastXPushed = ifxVel;
-        if(xVel != 0)
+        if (isDead == false)
         {
-            isWalking = true;
-            lastXPushed = xVel;
+            float xVel = Input.GetAxisRaw("Horizontal");
+            //lastXPushed = ifxVel;
+            if (xVel != 0)
+            {
+                isWalking = true;
+                lastXPushed = xVel;
+            }
+            else
+            {
+                isWalking = false;
+            }
+
+            Vector3 moveDirection = new Vector3(xVel * Time.deltaTime * 3.9f, 0, 0);
+            transform.position += moveDirection;
+
+
+
+
+
+            if (xVel >= 1 && isGrounded == true)
+            {
+
+                MovingRightAnimation();
+
+
+            }
+
+
+
+            if (xVel <= -1 && isGrounded == true)
+            {
+                MovingLeftAnimation();
+
+
+            }
+
+
+            if (lastXPushed == 1 && isWalking == false && isGrounded == true && isShooting == false)
+            {
+                IdleRightAnimation();
+
+            }
+
+            if (lastXPushed == -1 && isWalking == false && isGrounded == true && isShooting == false)
+            {
+                IdleLeftAnimation();
+
+            }
+
         }
-        else 
-        {
-            isWalking = false;
-        }
-
-        Vector3 moveDirection = new Vector3(xVel * Time.deltaTime * 3.9f, 0, 0);
-        transform.position += moveDirection;
-
-
-   
-
-
-        if (xVel >= 1  && isGrounded == true )
-        {
-            
-            MovingRightAnimation();
-          
-
-        }
-       
-        
-       
-        if (xVel <= -1  && isGrounded == true )
-        {
-            MovingLeftAnimation();
-           
-            
-        }
-        
-
-        if (lastXPushed == 1  && isWalking == false && isGrounded == true && isShooting == false)
-        {
-            IdleRightAnimation();
-
-        }
-       
-        if (lastXPushed == -1 && isWalking == false && isGrounded == true && isShooting == false)
-        {
-            IdleLeftAnimation();
-
-        }
-
-        
 
     }
 
@@ -233,10 +236,7 @@ public class Movement : MonoBehaviour
             isGrounded = false;
         }
 
-
-
-
-
+       
     }
 
 
@@ -300,5 +300,16 @@ public class Movement : MonoBehaviour
         isShooting = false;
     }
 
+
+
+    public void Dead()
+    {
+        isDead = true;
+    }
+
+    public void Alive()
+    {
+        isDead = false;
+    }
 
 }

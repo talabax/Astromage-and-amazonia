@@ -9,6 +9,7 @@ public class GroundChecker : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+
         player = gameObject.transform.parent.gameObject; 
     }
 
@@ -23,10 +24,12 @@ public class GroundChecker : MonoBehaviour
     {
         if(collision.collider.tag == "Ground")
         {
+            
+            
           
-
-            player.GetComponent<Movement>().SetGroundTrue();
-
+               player.GetComponent<Movement>().SetGroundTrue();
+            
+            
         }
 
 
@@ -36,7 +39,7 @@ public class GroundChecker : MonoBehaviour
     {
         if(collision.collider.tag == "Ground")
         {
-
+            
             player.GetComponent<Movement>().SetGroundFalse();
 
         }
